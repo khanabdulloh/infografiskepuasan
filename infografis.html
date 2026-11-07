@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#12307a">
+<title>Indeks Kepuasan Pelayanan SMKS Ciledug Al Musaddadiyah Garut</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light dark;--bg:#f3f6fb;--card:#fff;--ink:#0e1a33;--hd:#12285f;--mute:#5b6a87;--line:#dfe6f2;--p:#1b3f92;--p2:#2d5fcf;--soft:#e8eefb;--gold:#c8a24b;--ok:#0f9b64;--warn:#c2410c;--r2:14px;--r3:20px;--sh:0 1px 2px rgba(14,26,51,.04),0 16px 40px -18px rgba(11,61,145,.22);--serif:"Source Serif 4",Georgia,serif;
+--s5:#1b3f92;--s4:#5b8ae6;--s3:#b4c8f2;--s2:#f0c768;--s1:#e0644f}
+@media(prefers-color-scheme:dark){:root{--bg:#0a1222;--card:#101b31;--ink:#e8eefb;--hd:#f1f5ff;--mute:#9aaac8;--line:#22314f;--p:#4b7ae8;--p2:#7aaaff;--soft:#172a4d;--ok:#34d399;--warn:#fb923c;--sh:0 16px 40px -18px rgba(0,0,0,.65);--s5:#4b7ae8;--s4:#7aa5f5;--s3:#3a4f7d}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 "Plus Jakarta Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+:focus-visible{outline:3px solid #f2b01e;outline-offset:2px}
+.hero{color:#fff;background:radial-gradient(120% 80% at 100% 0%,#2f62d0 0%,transparent 60%),linear-gradient(180deg,#1f4799,#0c2262);padding:max(28px,env(safe-area-inset-top)) 24px 96px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;right:-180px;top:-160px;width:560px;height:560px;border-radius:50%;border:1px solid rgba(255,255,255,.1);box-shadow:0 0 0 80px rgba(255,255,255,.025)}
+.in{max-width:1120px;margin:0 auto;position:relative}
+.brand{display:flex;align-items:center;gap:14px;font-size:14.5px;color:rgba(255,255,255,.8)}
+.tile{width:52px;height:52px;border-radius:14px;background:#fff;display:grid;place-items:center;padding:6px;flex:none}
+.tile img{max-width:100%;max-height:100%}
+.brand b{display:block;color:#fff;font-size:17px;line-height:1.2}
+.hg{display:grid;grid-template-columns:1.15fr 1fr;gap:40px;align-items:center;margin-top:44px}
+.hero h1{font:600 clamp(32px,4.6vw,58px)/1.08 var(--serif);margin:0;letter-spacing:-.015em;text-wrap:balance}
+.rule{width:56px;height:3px;border-radius:3px;background:var(--gold);margin:22px 0}
+.hero p{margin:0;max-width:48ch;color:rgba(255,255,255,.86);font-size:17px}
+.btn{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;min-height:42px;padding:0 18px;margin-top:24px;border:1px solid rgba(255,255,255,.3);border-radius:99px;font-weight:600;font-size:14.5px;color:#fff;background:rgba(255,255,255,.08)}
+.btn:hover{background:rgba(255,255,255,.16)}
+.gauge{background:var(--card);color:var(--ink);border-radius:28px;padding:28px 28px 24px;box-shadow:0 30px 60px -28px rgba(0,0,0,.55);text-align:center}
+.gauge svg{width:100%;max-width:380px;height:auto;display:block;margin:0 auto}
+.gauge .trk{stroke:var(--line)}
+.gauge .arc{stroke:url(#g);stroke-dasharray:314.16;stroke-dashoffset:314.16;transition:stroke-dashoffset 1.4s cubic-bezier(.2,.7,.2,1)}
+.big{font:700 clamp(54px,8vw,76px)/1 var(--serif);color:var(--hd);margin-top:-72px;position:relative;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.big small{font:600 22px var(--serif);color:var(--mute)}
+.lvl{display:inline-block;margin-top:10px;padding:5px 16px;border-radius:99px;background:var(--soft);color:var(--p);font-weight:700;font-size:15px}
+.gauge p{color:var(--mute);font-size:14px;margin:12px 0 0}
+.stats{max-width:1120px;margin:-52px auto 0;padding:0 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r3);padding:18px 20px;box-shadow:var(--sh)}
+.stat b{display:block;font:700 30px/1.15 var(--serif);color:var(--hd);font-variant-numeric:tabular-nums}
+.stat span{font-size:14px;color:var(--mute)}
+main{max-width:1120px;margin:0 auto;padding:28px 24px 56px;display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+.demo{grid-column:1/-1;background:color-mix(in srgb,#f2b01e 16%,var(--card));border:1px solid color-mix(in srgb,#f2b01e 50%,var(--line));border-radius:var(--r2);padding:12px 16px;font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r3);padding:26px;box-shadow:var(--sh);grid-column:span 12}
+.c7{grid-column:span 7}.c5{grid-column:span 5}.c6{grid-column:span 6}
+.card h2{font:700 22px/1.25 var(--serif);color:var(--hd);margin:0 0 4px;letter-spacing:-.01em}
+.card>p.d{margin:0 0 20px;color:var(--mute);font-size:14.5px}
+.row{display:grid;grid-template-columns:190px 1fr 92px;gap:14px;align-items:center;padding:9px 0}
+.row+.row{border-top:1px solid var(--line)}
+.row .n{font-weight:600;font-size:14.5px;line-height:1.35}
+.bar{height:12px;border-radius:99px;background:var(--soft);overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--p),var(--p2));transition:width 1s cubic-bezier(.2,.7,.2,1)}
+.row.top .bar i{background:linear-gradient(90deg,#b8902f,var(--gold))}
+.v{text-align:right;font-weight:700;font-variant-numeric:tabular-nums;font-size:15px}
+.v small{display:block;font-weight:500;color:var(--mute);font-size:12px;line-height:1.2}
+.stk{display:flex;height:22px;border-radius:7px;overflow:hidden;background:var(--soft)}
+.stk i{display:block;height:100%;min-width:0}
+.leg{display:flex;flex-wrap:wrap;gap:6px 16px;margin:0 0 14px;font-size:13px;color:var(--mute)}
+.leg span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:var(--c)}
+.srow{display:grid;grid-template-columns:190px 1fr 56px;gap:14px;align-items:center;padding:8px 0;font-size:14.5px;font-weight:600}
+.srow em{font-style:normal;text-align:right;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ok)}
+.rl{display:grid;gap:12px}
+.rl div{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:14.5px}
+.rl b{font-variant-numeric:tabular-nums}
+.rl .bar{grid-column:1/-1;height:8px}
+.ls{list-style:none;margin:0;padding:0}
+.ls li{display:flex;justify-content:space-between;gap:16px;padding:11px 0;font-size:14.5px;line-height:1.45}
+.ls li+li{border-top:1px solid var(--line)}
+.ls b{flex:none;font-variant-numeric:tabular-nums}
+.ls.g b{color:var(--ok)}.ls.w b{color:var(--warn)}
+.ov{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.ov div{background:var(--soft);border-radius:var(--r2);padding:18px}
+.ov b{display:block;font:700 40px/1.1 var(--serif);color:var(--p);font-variant-numeric:tabular-nums}
+.ov span{font-size:14px;color:var(--mute);line-height:1.4;display:block;margin-top:4px}
+.sc{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;font-size:13px}
+.sc div{border-radius:12px;padding:10px 8px;text-align:center;background:var(--soft);line-height:1.35}
+.sc b{display:block;font-size:14px}.sc span{color:var(--mute)}
+footer{max-width:1120px;margin:0 auto;padding:0 24px calc(36px + env(safe-area-inset-bottom,0px));text-align:center;color:var(--mute);font-size:13px}
+@media(max-width:960px){.hg{grid-template-columns:1fr;gap:28px;margin-top:30px}.stats{grid-template-columns:1fr 1fr}.c7,.c5,.c6{grid-column:span 12}}
+@media(max-width:640px){.hero{padding-bottom:84px}.hero p{font-size:15.5px}.gauge{padding:22px 16px}main,.stats,footer{padding-left:16px;padding-right:16px}.card{padding:20px 18px}
+.row,.srow{grid-template-columns:1fr auto;gap:6px 12px}.row .bar,.srow .stk{grid-column:1/-1;order:3}.ov{grid-template-columns:1fr}.sc{grid-template-columns:repeat(2,1fr)}.stat b{font-size:26px}}
+@media print{.btn,.demo.np{display:none}body{background:#fff}.hero{padding-bottom:70px;-webkit-print-color-adjust:exact;print-color-adjust:exact}.card,.stat{box-shadow:none;break-inside:avoid}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="in">
+  <div class="brand"><div class="tile"><img alt="Logo SMKS Ciledug Al Musaddadiyah" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiD-8YPFS6i86EyZZNDUhwuam5ro_mtc9So2muvB7EDWz1Zp6rarLubvVS3vfVVoto_S6SaHlIPPnmNaddUugGUztWkJYhDwwT8CU1BcUuq9TNyxnHKa6B44iDBx6LjR1-z3r7_C34jviaWeOYgk4bNJHsziPV4KR5mQjY69HVhyphenhyphenR3STD4xp-b46x_HeR4/s160/An8Em6pLCtVUNFZTK-rgdQG9pKiDxE1AR7m_1QO_5slD3C5qFXYq7S9suI1ztpViB_aUnbOGE2-Y71AU9SF3GjQzZ09xbw5aat-JT_7ptJ4VcfdGeJ73DWbHD9IDtVHa_16MjCj09HJ4eGBvZMo-removebg-preview.png"></div><div><b>SMK CALM</b>Survei Harmoni Lingkungan Sekolah</div></div>
+  <div class="hg">
+    <div>
+      <h1>Indeks Kepuasan Pelayanan SMKS Ciledug Al Musaddadiyah Garut</h1>
+      <div class="rule"></div>
+      <p>Ringkasan penilaian warga sekolah terhadap kebersihan, kenyamanan, keamanan, fasilitas, dan pelayanan di lingkungan sekolah.</p>
+      <button type="button" class="btn" onclick="print()">Cetak atau simpan PDF</button>
+    </div>
+    <div class="gauge" role="img" id="gauge">
+      <svg viewBox="0 0 240 135" aria-hidden="true"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#1b3f92"/><stop offset="1" stop-color="#4f86f0"/></linearGradient></defs>
+        <path class="trk" d="M20 120A100 100 0 0 1 220 120" fill="none" stroke-width="16" stroke-linecap="round"/>
+        <path class="arc" id="arc" d="M20 120A100 100 0 0 1 220 120" fill="none" stroke-width="16" stroke-linecap="round"/></svg>
+      <div class="big"><span id="idx">0</span><small>/100</small></div>
+      <span class="lvl" id="lvl"></span>
+      <p id="avg"></p>
+    </div>
+  </div>
+</div></header>
+
+<section class="stats" id="stats"></section>
+<main id="m"></main>
+<footer>© 2026 SMKS Ciledug Al Musaddadiyah Garut · Indeks = rata-rata skor ÷ 5 × 100</footer>
+
+<script>
+/* Isi dengan URL Web App Apps Script (berakhiran /exec) agar angka diambil dari jawaban asli.
+   Kosongkan untuk menampilkan data contoh. */
+const SCRIPT_URL="";
+
+const LV=[["Sangat Puas",4.21,"#1b3f92"],["Puas",3.41],["Cukup Puas",2.61],["Kurang Puas",1.81],["Tidak Puas",0]];
+const level=a=>LV.find(l=>a>=l[1])[0];
+const GR=[["Kebersihan lingkungan sekolah",["Kebersihan ruang kelas.","Kebersihan halaman dan lingkungan sekolah.","Kebersihan toilet sekolah.","Ketersediaan tempat sampah.","Kebersihan kantin dan area makan.","Kondisi lingkungan sekolah secara keseluruhan."],[4.3,4.4,3.9,4.1,4.0,4.3]],
+["Kenyamanan lingkungan sekolah",["Lingkungan sekolah terasa nyaman untuk belajar dan bekerja.","Kondisi ruang kelas mendukung kegiatan pembelajaran.","Pencahayaan ruang kelas sudah cukup baik.","Sirkulasi udara di lingkungan sekolah cukup baik.","Suasana sekolah mendukung konsentrasi dan kegiatan belajar.","Fasilitas umum sekolah memberikan kenyamanan bagi warga sekolah."],[4.4,4.2,4.1,4.0,4.3,4.1]],
+["Keamanan dan ketertiban",["Lingkungan sekolah terasa aman.","Keamanan fasilitas dan barang milik warga sekolah cukup baik.","Tata tertib sekolah diterapkan dengan baik.","Lingkungan sekolah cukup tertib.","Warga sekolah saling menjaga keamanan dan ketertiban."],[4.5,4.2,4.4,4.3,4.4]],
+["Fasilitas dan sarana prasarana",["Kondisi meja dan kursi cukup baik.","Fasilitas pembelajaran tersedia dan dapat digunakan dengan baik.","Fasilitas toilet cukup memadai.","Fasilitas ibadah dapat digunakan dengan nyaman.","Fasilitas olahraga cukup memadai.","Sarana pendukung lainnya cukup memenuhi kebutuhan warga sekolah."],[3.9,4.1,3.7,4.5,3.8,3.9]],
+["Pelayanan dan lingkungan sosial",["Guru memberikan pelayanan dengan baik.","Tenaga kependidikan memberikan pelayanan dengan baik.","Warga sekolah saling menghargai.","Lingkungan sekolah mendukung sikap disiplin dan tanggung jawab.","Lingkungan sekolah mendukung terciptanya hubungan yang harmonis.","Sekolah memberikan perhatian terhadap kenyamanan warga sekolah."],[4.6,4.5,4.4,4.5,4.4,4.3]]];
+const ROLES=["Guru","Staf / Tenaga Kependidikan","Murid / Siswa","Orang Tua / Wali Siswa","Masyarakat Umum / Tamu"];
+const dist=(a,n)=>{const w=[1,2,3,4,5].map(k=>Math.exp(-Math.pow(k-a,2)/1.3)),t=w.reduce((x,y)=>x+y);return w.map(x=>Math.round(x/t*n))};
+const DEMO={demo:1,n:214,roles:{"Guru":18,"Staf / Tenaga Kependidikan":9,"Murid / Siswa":142,"Orang Tua / Wali Siswa":38,"Masyarakat Umum / Tamu":7},
+ groups:GR.map(g=>({name:g[0],items:g[1].map((q,i)=>({q,d:dist(g[2][i],214)}))})),
+ overall:{puas:dist(4.3,214),dukung:dist(4.2,214)}};
+
+const $=s=>document.querySelector(s),sum=a=>a.reduce((x,y)=>x+y,0),sd=d=>sum(d.map((c,i)=>c*(i+1))),f1=n=>n.toFixed(2).replace(".",","),pc=n=>Math.round(n)+"%";
+const avgOf=d=>sum(d)?sd(d)/sum(d):0,add=ds=>ds.reduce((a,d)=>a.map((x,i)=>x+d[i]),[0,0,0,0,0]);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function render(D){
+  const gs=D.groups.map(g=>({name:g.name,d:add(g.items.map(i=>i.d)),items:g.items})),all=add(gs.map(g=>g.d)),A=avgOf(all),I=A/5*100;
+  const items=gs.flatMap(g=>g.items.map(i=>({q:i.q,a:avgOf(i.d)}))).filter(i=>i.a>0).sort((a,b)=>b.a-a.a);
+  $("#lvl").textContent=level(A);$("#avg").textContent="Rata-rata skor "+f1(A)+" dari 5";
+  $("#gauge").setAttribute("aria-label","Indeks kepuasan "+I.toFixed(1)+" dari 100, kategori "+level(A));
+  requestAnimationFrame(()=>setTimeout(()=>{$("#arc").style.strokeDashoffset=314.16*(1-I/100)},80));
+  const t0=performance.now();(function tick(t){const p=Math.min(1,(t-t0)/1400);$("#idx").textContent=(I*(1-Math.pow(1-p,3))).toFixed(1).replace(".",",");if(p<1)requestAnimationFrame(tick)})(t0);
+  const best=[...gs].sort((a,b)=>avgOf(b.d)-avgOf(a.d))[0],pos=(all[3]+all[4])/Math.max(1,sum(all))*100;
+  $("#stats").innerHTML=[[D.n,"responden mengisi survei"],[pc(pos),"jawaban bernilai Puas atau Sangat Puas"],[best.name.split(" ")[0],"aspek dengan nilai tertinggi"],[items.length,"pernyataan dinilai"]].map(s=>`<div class="stat"><b>${esc(s[0])}</b><span>${s[1]}</span></div>`).join("");
+  const mx=Math.max(...gs.map(g=>avgOf(g.d)));
+  const C=["var(--s1)","var(--s2)","var(--s3)","var(--s4)","var(--s5)"];
+  const rows=gs.map(g=>{const a=avgOf(g.d);return `<div class="row${a===mx?" top":""}"><div class="n">${esc(g.name)}</div><div class="bar"><i data-w="${a/5*100}"></i></div><div class="v">${f1(a)}<small>${level(a)}</small></div></div>`}).join("");
+  const stk=gs.map(g=>{const t=Math.max(1,sum(g.d));return `<div class="srow"><span>${esc(g.name)}</span><div class="stk" role="img" aria-label="${esc(g.name)}: ${pc((g.d[3]+g.d[4])/t*100)} puas">${[4,3,2,1,0].map(k=>`<i style="width:${g.d[k]/t*100}%;background:${C[k]}" title="${LV[4-k][0]}: ${pc(g.d[k]/t*100)}"></i>`).join("")}</div><em>${pc((g.d[3]+g.d[4])/t*100)}</em></div>`}).join("");
+  const rl=ROLES.map(r=>{const c=D.roles[r]||0;return `<div><span>${r}</span><b>${c} <small style="color:var(--mute);font-weight:500">(${pc(c/Math.max(1,D.n)*100)})</small></b><div class="bar"><i data-w="${c/Math.max(1,D.n)*100}"></i></div></div>`}).join("");
+  const li=(l,c)=>`<ul class="ls ${c}">${l.map(i=>`<li><span>${esc(i.q.replace(/\.$/,""))}</span><b>${f1(i.a)}</b></li>`).join("")}</ul>`;
+  const o=D.overall,op=a=>pc((a[3]+a[4])/Math.max(1,sum(a))*100);
+  $("#m").innerHTML=(D.demo?`<div class="demo np"><b>Data contoh.</b> Angka di halaman ini hanya ilustrasi. Isi <code>SCRIPT_URL</code> pada file ini agar terhubung ke jawaban asli di Google Sheet.</div>`:"")+
+  `<section class="card c7"><h2>Indeks per aspek</h2><p class="d">Skor rata-rata dari skala 1 sampai 5. Aspek tertinggi ditandai emas.</p>${rows}</section>
+  <section class="card c5"><h2>Penilaian keseluruhan</h2><p class="d">Dari dua pertanyaan penutup survei.</p><div class="ov"><div><b>${op(o.puas)}</b><span>puas terhadap lingkungan sekolah</span></div><div><b>${op(o.dukung)}</b><span>menilai lingkungan mendukung belajar dan bekerja</span></div></div>
+   <h2 style="margin-top:26px">Skala penilaian</h2><p class="d">Cara membaca kategori kepuasan.</p><div class="sc">${[["Sangat Puas","4,21–5,00"],["Puas","3,41–4,20"],["Cukup Puas","2,61–3,40"],["Kurang Puas","1,81–2,60"],["Tidak Puas","1,00–1,80"]].map(s=>`<div><b>${s[0]}</b><span>${s[1]}</span></div>`).join("")}</div></section>
+  <section class="card"><h2>Sebaran jawaban</h2><p class="d">Proporsi setiap pilihan nilai. Angka di kanan adalah persentase yang puas.</p><div class="leg">${["Sangat Puas","Puas","Cukup Puas","Kurang Puas","Tidak Puas"].map((n,i)=>`<span style="--c:${C[4-i]}">${n}</span>`).join("")}</div>${stk}</section>
+  <section class="card c6"><h2>Nilai tertinggi</h2><p class="d">Tiga pernyataan dengan skor terbaik.</p>${li(items.slice(0,3),"g")}</section>
+  <section class="card c6"><h2>Prioritas perbaikan</h2><p class="d">Tiga pernyataan dengan skor terendah.</p>${li(items.slice(-3).reverse(),"w")}</section>
+  <section class="card"><h2>Siapa yang menilai</h2><p class="d">Komposisi responden menurut kategori.</p><div class="rl">${rl}</div></section>`;
+  requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll("[data-w]").forEach(e=>e.style.width=e.dataset.w+"%"),80));
+}
+async function init(){
+  let D=DEMO;
+  if(/^https:\/\/script\.google\.com\//.test(SCRIPT_URL)){
+    try{const r=await(await fetch(SCRIPT_URL+"?action=summary")).json();if(r.ok&&r.n>0)D=r}catch(e){}
+  }
+  render(D);
+}
+init();
+</script>
+</body>
+</html>
