@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
+<link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiD-8YPFS6i86EyZZNDUhwuam5ro_mtc9So2muvB7EDWz1Zp6rarLubvVS3vfVVoto_S6SaHlIPPnmNaddUugGUztWkJYhDwwT8CU1BcUuq9TNyxnHKa6B44iDBx6LjR1-z3r7_C34jviaWeOYgk4bNJHsziPV4KR5mQjY69HVhyphenhyphenR3STD4xp-b46x_HeR4/s160/An8Em6pLCtVUNFZTK-rgdQG9pKiDxE1AR7m_1QO_5slD3C5qFXYq7S9suI1ztpViB_aUnbOGE2-Y71AU9SF3GjQzZ09xbw5aat-JT_7ptJ4VcfdGeJ73DWbHD9IDtVHa_16MjCj09HJ4eGBvZMo-removebg-preview.png">
 <meta name="theme-color" content="#12307a">
 <title>Indeks Kepuasan Pelayanan SMKS Ciledug Al Musaddadiyah Garut</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -123,10 +124,10 @@ footer{max-width:1120px;margin:0 auto;padding:0 24px calc(36px + env(safe-area-i
 <footer>© 2026 SMKS Ciledug Al Musaddadiyah Garut · Indeks = rata-rata skor ÷ 5 × 100</footer>
 
 <script>
-/* Isi dengan URL Web App Apps Script (berakhiran /exec) agar angka diambil dari jawaban asli.
-   Kosongkan untuk menampilkan data contoh. */
-const SCRIPT_URL="https://script.google.com/macros/s/AKfycbzAs_OSwQh94JgE_7hWGlOnMDw58PCWzVoTaQ86WW1YEIa88_5s9Npdrx2_SbiPz_dn/exec";
+/* Alamat layanan data */
+const API_URL="https://script.google.com/macros/s/AKfycbzAs_OSwQh94JgE_7hWGlOnMDw58PCWzVoTaQ86WW1YEIa88_5s9Npdrx2_SbiPz_dn/exec";
 
+const Q=new URLSearchParams(location.search),DBG=Q.has("debug"),SHOWDEMO=Q.has("demo")||DBG;
 const LV=[["Sangat Puas",4.21,"#1b3f92"],["Puas",3.41],["Cukup Puas",2.61],["Kurang Puas",1.81],["Tidak Puas",0]];
 const level=a=>LV.find(l=>a>=l[1])[0];
 const GR=[["Kebersihan lingkungan sekolah",["Kebersihan ruang kelas.","Kebersihan halaman dan lingkungan sekolah.","Kebersihan toilet sekolah.","Ketersediaan tempat sampah.","Kebersihan kantin dan area makan.","Kondisi lingkungan sekolah secara keseluruhan."],[4.3,4.4,3.9,4.1,4.0,4.3]],
@@ -160,7 +161,7 @@ function render(D){
   const rl=[...ROLES,...Object.keys(D.roles).filter(k=>!ROLES.includes(k))].map(r=>{const c=D.roles[r]||0;return `<div><span>${r}</span><b>${c} <small style="color:var(--mute);font-weight:500">(${pc(c/Math.max(1,D.n)*100)})</small></b><div class="bar"><i data-w="${c/Math.max(1,D.n)*100}"></i></div></div>`}).join("");
   const li=(l,c)=>`<ul class="ls ${c}">${l.map(i=>`<li><span>${esc(i.q.replace(/\.$/,""))}</span><b>${f1(i.a)}</b></li>`).join("")}</ul>`;
   const gw=[...gs].sort((a,b)=>avgOf(a.d)-avgOf(b.d))[0],hi=items[0],lo=items[items.length-1];
-  $("#upd").textContent="Diperbarui "+new Date().toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})+" · "+D.n+" responden"+(D.sources&&D.sources.length>1?" · Sumber: "+D.sources.map(z=>z.sheet+" ("+z.n+")").join(", "):"");
+  $("#upd").textContent="Diperbarui "+new Date().toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})+" · "+D.n+" responden"+(DBG&&D.sources?" · "+D.sources.map(z=>z.sheet+" ("+z.n+")").join(", "):"");
   const find=`<ul class="ls t"><li>Indeks kepuasan keseluruhan berada di <b>${I.toFixed(1).replace(".",",")}</b> dari 100 dengan kategori <b>${level(A)}</b>, dan <b>${pc(pos)}</b> jawaban bernilai Puas atau Sangat Puas.</li><li>Aspek terkuat adalah <b>${esc(best.name.toLowerCase())}</b> (${f1(avgOf(best.d))}). Aspek dengan nilai terendah adalah <b>${esc(gw.name.toLowerCase())}</b> (${f1(avgOf(gw.d))}).</li><li>Pernyataan tertinggi: <b>${esc(hi.q.replace(/\.$/,""))}</b> (${f1(hi.a)}). Terendah: <b>${esc(lo.q.replace(/\.$/,""))}</b> (${f1(lo.a)}).</li></ul>`;
   const o=D.overall,op=a=>pc((a[3]+a[4])/Math.max(1,sum(a))*100);
   $("#m").innerHTML=(D.demo?`<div class="demo np"><b>Contoh tampilan.</b> Angka di halaman ini hanya ilustrasi dan bukan hasil survei sekolah.</div>`:"")+
@@ -175,21 +176,16 @@ function render(D){
   requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll("[data-w]").forEach(e=>e.style.width=e.dataset.w+"%"),80));
 }
 function empty(why,detail){
-  const M={nourl:["Alamat Web App belum diisi","Isi <code>SCRIPT_URL</code> di bagian atas script pada file ini dengan alamat Web App Apps Script yang berakhiran <code>/exec</code>."],
-   old:["Web App masih memakai Code.gs versi lama","Tempel <code>Code.gs</code> terbaru di Apps Script, lalu pilih Deploy, Manage deployments, New version, Deploy. Alamat <code>/exec</code> tetap sama."],
-   empty:["Belum ada jawaban yang masuk","Web App sudah terhubung, tetapi tab <b>Respon Web</b> masih kosong. Infografis terisi otomatis setelah ada responden pertama."],
-   net:["Data belum dapat diambil","Pastikan akses Web App diatur ke <b>Anyone</b>, alamat <code>/exec</code> benar, dan perangkat terhubung ke internet."],
-   err:["Web App mengembalikan kesalahan","Periksa ID spreadsheet dan nama tab di Code.gs. "+(detail||"")]}[why];
-  $("#idx").textContent="–";$("#lvl").textContent="Menunggu data";$("#avg").textContent="Belum ada hasil untuk ditampilkan";
-  $("#upd").textContent="";
-  $("#stats").innerHTML="";document.querySelector("main").style.marginTop="-40px";
-  $("#m").innerHTML=`<section class="card empty"><h2>${M[0]}</h2><p>${M[1]}</p><button type="button" class="go" id="demoBtn">Lihat contoh tampilan</button></section>`;
-  $("#demoBtn").onclick=()=>{document.querySelector("main").style.marginTop="";render(DEMO)};
+  const T={nourl:"API_URL belum diisi.",old:"Layanan data belum memakai versi terbaru.",empty:"Belum ada jawaban yang masuk.",net:"Layanan data tidak dapat dijangkau (periksa akses publik dan alamat).",err:"Layanan data mengembalikan kesalahan. "+(detail||"")}[why];
+  $("#idx").textContent="–";$("#lvl").textContent="Menunggu data";$("#avg").textContent="Hasil survei sedang disiapkan";
+  $("#upd").textContent="";$("#stats").innerHTML="";document.querySelector("main").style.marginTop="-40px";
+  $("#m").innerHTML=`<section class="card empty"><h2>Hasil survei sedang disiapkan</h2><p>Infografis akan tampil di sini setelah data tersedia. Silakan kembali beberapa saat lagi.</p>${DBG?`<p><code>${esc(T)}</code></p>`:""}${SHOWDEMO?'<button type="button" class="go" id="demoBtn">Lihat contoh tampilan</button>':""}</section>`;
+  const b=$("#demoBtn");if(b)b.onclick=()=>{document.querySelector("main").style.marginTop="";render(DEMO)};
 }
 async function init(){
-  if(!/^https:\/\/script\.google\.com\//.test(SCRIPT_URL))return empty("nourl");
+  if(!/^https:\/\//.test(API_URL))return empty("nourl");
   try{
-    const r=await(await fetch(SCRIPT_URL+"?action=summary",{cache:"no-store"})).json();
+    const r=await(await fetch(API_URL+"?action=summary",{cache:"no-store"})).json();
     if(!r.ok)return empty("err",String(r.error||""));
     if(!r.groups)return empty("old");
     if(!(r.n>0))return empty("empty");
