@@ -77,6 +77,17 @@ main{max-width:1120px;margin:0 auto;padding:28px 24px 56px;display:grid;grid-tem
 .sc{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;font-size:13px}
 .sc div{border-radius:12px;padding:10px 8px;text-align:center;background:var(--soft);line-height:1.35}
 .sc b{display:block;font-size:14px}.sc span{color:var(--mute)}
+.upd{margin-top:14px;font-size:13.5px;color:rgba(255,255,255,.72)}
+.btn+.upd{margin-top:18px}
+.ls.t li{display:block;padding-left:18px;position:relative}
+.ls.t li::before{content:"";position:absolute;left:0;top:.8em;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.ls.t li b{display:inline;color:var(--hd)}
+.empty{text-align:center;padding:44px 26px}
+.empty h2{margin-bottom:8px}
+.empty p{max-width:56ch;margin:0 auto 6px;color:var(--mute)}
+.empty code{background:var(--soft);padding:2px 7px;border-radius:6px;font-size:13px;word-break:break-all}
+.empty .go{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;min-height:44px;margin-top:20px;padding:0 22px;border-radius:var(--r2);background:var(--p);color:#fff;font-weight:700;font-size:15px}
+.empty .go:hover{background:var(--p2)}
 footer{max-width:1120px;margin:0 auto;padding:0 24px calc(36px + env(safe-area-inset-bottom,0px));text-align:center;color:var(--mute);font-size:13px}
 @media(max-width:960px){.hg{grid-template-columns:1fr;gap:28px;margin-top:30px}.stats{grid-template-columns:1fr 1fr}.c7,.c5,.c6{grid-column:span 12}}
 @media(max-width:640px){.hero{padding-bottom:84px}.hero p{font-size:15.5px}.gauge{padding:22px 16px}main,.stats,footer{padding-left:16px;padding-right:16px}.card{padding:20px 18px}
@@ -94,6 +105,7 @@ footer{max-width:1120px;margin:0 auto;padding:0 24px calc(36px + env(safe-area-i
       <div class="rule"></div>
       <p>Ringkasan penilaian warga sekolah terhadap kebersihan, kenyamanan, keamanan, fasilitas, dan pelayanan di lingkungan sekolah.</p>
       <button type="button" class="btn" onclick="print()">Cetak atau simpan PDF</button>
+      <div class="upd" id="upd"></div>
     </div>
     <div class="gauge" role="img" id="gauge">
       <svg viewBox="0 0 240 135" aria-hidden="true"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#1b3f92"/><stop offset="1" stop-color="#4f86f0"/></linearGradient></defs>
@@ -147,23 +159,42 @@ function render(D){
   const stk=gs.map(g=>{const t=Math.max(1,sum(g.d));return `<div class="srow"><span>${esc(g.name)}</span><div class="stk" role="img" aria-label="${esc(g.name)}: ${pc((g.d[3]+g.d[4])/t*100)} puas">${[4,3,2,1,0].map(k=>`<i style="width:${g.d[k]/t*100}%;background:${C[k]}" title="${LV[4-k][0]}: ${pc(g.d[k]/t*100)}"></i>`).join("")}</div><em>${pc((g.d[3]+g.d[4])/t*100)}</em></div>`}).join("");
   const rl=ROLES.map(r=>{const c=D.roles[r]||0;return `<div><span>${r}</span><b>${c} <small style="color:var(--mute);font-weight:500">(${pc(c/Math.max(1,D.n)*100)})</small></b><div class="bar"><i data-w="${c/Math.max(1,D.n)*100}"></i></div></div>`}).join("");
   const li=(l,c)=>`<ul class="ls ${c}">${l.map(i=>`<li><span>${esc(i.q.replace(/\.$/,""))}</span><b>${f1(i.a)}</b></li>`).join("")}</ul>`;
+  const gw=[...gs].sort((a,b)=>avgOf(a.d)-avgOf(b.d))[0],hi=items[0],lo=items[items.length-1];
+  $("#upd").textContent="Diperbarui "+new Date().toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})+" · "+D.n+" responden";
+  const find=`<ul class="ls t"><li>Indeks kepuasan keseluruhan berada di <b>${I.toFixed(1).replace(".",",")}</b> dari 100 dengan kategori <b>${level(A)}</b>, dan <b>${pc(pos)}</b> jawaban bernilai Puas atau Sangat Puas.</li><li>Aspek terkuat adalah <b>${esc(best.name.toLowerCase())}</b> (${f1(avgOf(best.d))}). Aspek dengan nilai terendah adalah <b>${esc(gw.name.toLowerCase())}</b> (${f1(avgOf(gw.d))}).</li><li>Pernyataan tertinggi: <b>${esc(hi.q.replace(/\.$/,""))}</b> (${f1(hi.a)}). Terendah: <b>${esc(lo.q.replace(/\.$/,""))}</b> (${f1(lo.a)}).</li></ul>`;
   const o=D.overall,op=a=>pc((a[3]+a[4])/Math.max(1,sum(a))*100);
-  $("#m").innerHTML=(D.demo?`<div class="demo np"><b>Data contoh.</b> Angka di halaman ini hanya ilustrasi. Isi <code>SCRIPT_URL</code> pada file ini agar terhubung ke jawaban asli di Google Sheet.</div>`:"")+
+  $("#m").innerHTML=(D.demo?`<div class="demo np"><b>Contoh tampilan.</b> Angka di halaman ini hanya ilustrasi dan bukan hasil survei sekolah.</div>`:"")+
   `<section class="card c7"><h2>Indeks per aspek</h2><p class="d">Skor rata-rata dari skala 1 sampai 5. Aspek tertinggi ditandai emas.</p>${rows}</section>
   <section class="card c5"><h2>Penilaian keseluruhan</h2><p class="d">Dari dua pertanyaan penutup survei.</p><div class="ov"><div><b>${op(o.puas)}</b><span>puas terhadap lingkungan sekolah</span></div><div><b>${op(o.dukung)}</b><span>menilai lingkungan mendukung belajar dan bekerja</span></div></div>
    <h2 style="margin-top:26px">Skala penilaian</h2><p class="d">Cara membaca kategori kepuasan.</p><div class="sc">${[["Sangat Puas","4,21–5,00"],["Puas","3,41–4,20"],["Cukup Puas","2,61–3,40"],["Kurang Puas","1,81–2,60"],["Tidak Puas","1,00–1,80"]].map(s=>`<div><b>${s[0]}</b><span>${s[1]}</span></div>`).join("")}</div></section>
+  <section class="card"><h2>Temuan utama</h2><p class="d">Ringkasan otomatis dari data yang masuk.</p>${find}</section>
   <section class="card"><h2>Sebaran jawaban</h2><p class="d">Proporsi setiap pilihan nilai. Angka di kanan adalah persentase yang puas.</p><div class="leg">${["Sangat Puas","Puas","Cukup Puas","Kurang Puas","Tidak Puas"].map((n,i)=>`<span style="--c:${C[4-i]}">${n}</span>`).join("")}</div>${stk}</section>
   <section class="card c6"><h2>Nilai tertinggi</h2><p class="d">Tiga pernyataan dengan skor terbaik.</p>${li(items.slice(0,3),"g")}</section>
   <section class="card c6"><h2>Prioritas perbaikan</h2><p class="d">Tiga pernyataan dengan skor terendah.</p>${li(items.slice(-3).reverse(),"w")}</section>
   <section class="card"><h2>Siapa yang menilai</h2><p class="d">Komposisi responden menurut kategori.</p><div class="rl">${rl}</div></section>`;
   requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll("[data-w]").forEach(e=>e.style.width=e.dataset.w+"%"),80));
 }
+function empty(why,detail){
+  const M={nourl:["Alamat Web App belum diisi","Isi <code>SCRIPT_URL</code> di bagian atas script pada file ini dengan alamat Web App Apps Script yang berakhiran <code>/exec</code>."],
+   old:["Web App masih memakai Code.gs versi lama","Tempel <code>Code.gs</code> terbaru di Apps Script, lalu pilih Deploy, Manage deployments, New version, Deploy. Alamat <code>/exec</code> tetap sama."],
+   empty:["Belum ada jawaban yang masuk","Web App sudah terhubung, tetapi tab <b>Respon Web</b> masih kosong. Infografis terisi otomatis setelah ada responden pertama."],
+   net:["Data belum dapat diambil","Pastikan akses Web App diatur ke <b>Anyone</b>, alamat <code>/exec</code> benar, dan perangkat terhubung ke internet."],
+   err:["Web App mengembalikan kesalahan","Periksa ID spreadsheet dan nama tab di Code.gs. "+(detail||"")]}[why];
+  $("#idx").textContent="–";$("#lvl").textContent="Menunggu data";$("#avg").textContent="Belum ada hasil untuk ditampilkan";
+  $("#upd").textContent="";
+  $("#stats").innerHTML="";document.querySelector("main").style.marginTop="-40px";
+  $("#m").innerHTML=`<section class="card empty"><h2>${M[0]}</h2><p>${M[1]}</p><button type="button" class="go" id="demoBtn">Lihat contoh tampilan</button></section>`;
+  $("#demoBtn").onclick=()=>{document.querySelector("main").style.marginTop="";render(DEMO)};
+}
 async function init(){
-  let D=DEMO;
-  if(/^https:\/\/script\.google\.com\//.test(SCRIPT_URL)){
-    try{const r=await(await fetch(SCRIPT_URL+"?action=summary")).json();if(r.ok&&r.n>0)D=r}catch(e){}
-  }
-  render(D);
+  if(!/^https:\/\/script\.google\.com\//.test(SCRIPT_URL))return empty("nourl");
+  try{
+    const r=await(await fetch(SCRIPT_URL+"?action=summary",{cache:"no-store"})).json();
+    if(!r.ok)return empty("err",String(r.error||""));
+    if(!r.groups)return empty("old");
+    if(!(r.n>0))return empty("empty");
+    render(r);
+  }catch(e){empty("net")}
 }
 init();
 </script>
