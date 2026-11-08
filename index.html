@@ -44,8 +44,6 @@ body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.65 var(--f);
 .stat b{display:block;font:700 34px/1.15 var(--f);color:var(--hd);letter-spacing:-.025em;font-variant-numeric:tabular-nums}
 .stat span{font-size:13.5px;color:var(--mute);line-height:1.5;display:block;margin-top:10px;max-width:22ch}
 main{max-width:1080px;margin:0 auto;padding:32px 24px 96px;display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
-.demo{order:0;grid-column:1/-1;background:var(--soft);border-radius:12px;padding:12px 18px;font-size:13.5px;color:var(--mute)}
-.demo b{color:var(--ink)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:44px;grid-column:span 12}
 .c6{grid-column:span 6}
 .a1{order:1}.a2{order:2}.a3{order:3}.a4{order:4}.a5{order:5}.a6{order:6}.a7{order:7}
@@ -93,13 +91,11 @@ main{max-width:1080px;margin:0 auto;padding:32px 24px 96px;display:grid;grid-tem
 .empty{text-align:center;padding:72px 32px}
 .empty h2{margin-bottom:10px}
 .empty p{max-width:52ch;margin:0 auto 6px;color:var(--mute)}
-.empty code{background:var(--soft);padding:2px 7px;border-radius:6px;font-size:13px;word-break:break-all}
-.empty .go{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;min-height:44px;margin-top:24px;padding:0 24px;border-radius:99px;background:#0b3d91;color:#fff;font:700 15px var(--f)}
 footer{max-width:1080px;margin:0 auto;padding:0 24px calc(48px + env(safe-area-inset-bottom,0px));text-align:center;color:var(--mute);font-size:12.5px}
 @media(max-width:960px){.hg{grid-template-columns:1fr;gap:48px;margin-top:48px}.hero{padding-bottom:104px}.stats{grid-template-columns:1fr 1fr}.stat{padding:28px 24px}.stat+.stat{border-left:0}.stat:nth-child(even){border-left:1px solid var(--line)}.stat:nth-child(n+3){border-top:1px solid var(--line)}.c6{grid-column:span 12}.card{padding:36px 32px}.row,.srow{grid-template-columns:200px 1fr 90px;gap:20px}.srow{grid-template-columns:200px 1fr 52px}}
 @media(max-width:640px){.hero{padding-bottom:88px}.hero p{font-size:15px}main,footer{padding-left:16px;padding-right:16px}.stats{width:calc(100% - 32px)}main{gap:16px}.card{padding:28px 22px}.card>p.d{margin-bottom:24px}
 .row,.srow{grid-template-columns:1fr auto;gap:12px 16px;padding:18px 0}.row .bar,.srow .stk{grid-column:1/-1;order:3}.ov{grid-template-columns:1fr;gap:24px}.sc{grid-template-columns:repeat(2,1fr);gap:18px 14px}.stat b{font-size:28px}.big{margin-top:-62px}.ls li{flex-direction:column;gap:6px}.ls.t li{font-size:15px}}
-@media print{.btn,.demo.np{display:none}body{background:#fff}.card,.stats{break-inside:avoid;box-shadow:none}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media print{.btn{display:none}body{background:#fff}.card,.stats{break-inside:avoid;box-shadow:none}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 .pill{display:inline-block;margin-bottom:22px;padding:6px 14px;border-radius:99px;background:#f2b01e;color:#0a1f4d;font:700 11.5px/1.4 var(--f);letter-spacing:.12em;text-transform:uppercase}
 .ey{display:block;margin-bottom:12px;font:700 12px var(--f);letter-spacing:.14em;color:var(--p);font-variant-numeric:tabular-nums}
@@ -174,22 +170,9 @@ footer{max-width:1080px;margin:0 auto;padding:0 24px calc(48px + env(safe-area-i
 /* Alamat layanan data */
 const API_URL="https://script.google.com/macros/s/AKfycbzAs_OSwQh94JgE_7hWGlOnMDw58PCWzVoTaQ86WW1YEIa88_5s9Npdrx2_SbiPz_dn/exec";
 
-const Q=new URLSearchParams(location.search),DBG=Q.has("debug"),SHOWDEMO=Q.has("demo")||DBG;
 const LV=[["Sangat Puas",4.21,"#1b3f92"],["Puas",3.41],["Cukup Puas",2.61],["Kurang Puas",1.81],["Tidak Puas",0]];
 const level=a=>LV.find(l=>a>=l[1])[0];
-const GR=[["Kebersihan lingkungan sekolah",["Kebersihan ruang kelas.","Kebersihan halaman dan lingkungan sekolah.","Kebersihan toilet sekolah.","Ketersediaan tempat sampah.","Kebersihan kantin dan area makan.","Kondisi lingkungan sekolah secara keseluruhan."],[4.3,4.4,3.9,4.1,4.0,4.3]],
-["Kenyamanan lingkungan sekolah",["Lingkungan sekolah terasa nyaman untuk belajar dan bekerja.","Kondisi ruang kelas mendukung kegiatan pembelajaran.","Pencahayaan ruang kelas sudah cukup baik.","Sirkulasi udara di lingkungan sekolah cukup baik.","Suasana sekolah mendukung konsentrasi dan kegiatan belajar.","Fasilitas umum sekolah memberikan kenyamanan bagi warga sekolah."],[4.4,4.2,4.1,4.0,4.3,4.1]],
-["Keamanan dan ketertiban",["Lingkungan sekolah terasa aman.","Keamanan fasilitas dan barang milik warga sekolah cukup baik.","Tata tertib sekolah diterapkan dengan baik.","Lingkungan sekolah cukup tertib.","Warga sekolah saling menjaga keamanan dan ketertiban."],[4.5,4.2,4.4,4.3,4.4]],
-["Fasilitas dan sarana prasarana",["Kondisi meja dan kursi cukup baik.","Fasilitas pembelajaran tersedia dan dapat digunakan dengan baik.","Fasilitas toilet cukup memadai.","Fasilitas ibadah dapat digunakan dengan nyaman.","Fasilitas olahraga cukup memadai.","Sarana pendukung lainnya cukup memenuhi kebutuhan warga sekolah."],[3.9,4.1,3.7,4.5,3.8,3.9]],
-["Pelayanan dan lingkungan sosial",["Guru memberikan pelayanan dengan baik.","Tenaga kependidikan memberikan pelayanan dengan baik.","Warga sekolah saling menghargai.","Lingkungan sekolah mendukung sikap disiplin dan tanggung jawab.","Lingkungan sekolah mendukung terciptanya hubungan yang harmonis.","Sekolah memberikan perhatian terhadap kenyamanan warga sekolah."],[4.6,4.5,4.4,4.5,4.4,4.3]]];
 const ROLES=["Guru","Staf / Tenaga Kependidikan","Murid / Siswa","Alumni","Orang Tua / Wali Siswa","Masyarakat Umum / Tamu"];
-const dist=(a,n)=>{const w=[1,2,3,4,5].map(k=>Math.exp(-Math.pow(k-a,2)/1.3)),t=w.reduce((x,y)=>x+y);return w.map(x=>Math.round(x/t*n))};
-const DEMO={demo:1,n:214,roles:{"Guru":18,"Staf / Tenaga Kependidikan":9,"Murid / Siswa":118,"Alumni":24,"Orang Tua / Wali Siswa":38,"Masyarakat Umum / Tamu":7},
- groups:GR.map(g=>({name:g[0],items:g[1].map((q,i)=>({q,d:dist(g[2][i],214)}))})),
- overall:{puas:dist(4.3,214),dukung:dist(4.2,214)}};
-DEMO.byRole=Object.fromEntries(ROLES.map((r,i)=>[r,{n:DEMO.roles[r],avg:GR.map((g,gi)=>+(g[2].reduce((x,y)=>x+y)/g[2].length+((i*7+gi*3)%9-4)*.06).toFixed(2))}]));
-DEMO.days={};[6,9,14,18,22,25,20,17,16,15,12,13,14,13].forEach((c,i,a)=>{const d=new Date(Date.now()-(a.length-1-i)*864e5);DEMO.days[d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")]=c});
-DEMO.first=Object.keys(DEMO.days)[0];DEMO.last=Object.keys(DEMO.days).pop();
 
 const $=s=>document.querySelector(s),sum=a=>a.reduce((x,y)=>x+y,0),sd=d=>sum(d.map((c,i)=>c*(i+1))),f1=n=>n.toFixed(2).replace(".",","),pc=n=>Math.round(n)+"%",n0=n=>Number(n).toLocaleString("id-ID");
 const avgOf=d=>sum(d)?sd(d)/sum(d):0,add=ds=>ds.reduce((a,d)=>a.map((x,i)=>x+d[i]),[0,0,0,0,0]),pr=d=>(d[3]+d[4])/Math.max(1,sum(d))*100;
@@ -202,19 +185,20 @@ const seg=(d,t)=>[4,3,2,1,0].map(k=>`<i style="width:${d[k]/t*100}%;background:$
 function render(D){
   const gs=D.groups.map(g=>({name:cap(g.name),d:add(g.items.map(i=>i.d)),items:g.items.map(i=>({q:i.q,d:i.d,a:avgOf(i.d),p:pr(i.d),n:sum(i.d)}))}));
   const all=add(gs.map(g=>g.d)),A=avgOf(all),I=A/5*100,N=sum(all),pos=pr(all);
+  if(!N)return empty();
   const items=gs.flatMap(g=>g.items).filter(i=>i.n>0),rk=[...items].sort((a,b)=>b.a-a.a),rank=new Map(rk.map((x,i)=>[x.q,i+1]));
   $("#lvl").textContent=level(A);$("#avg").textContent="Rata-rata skor "+f1(A)+" dari 5";
   $("#gauge").setAttribute("aria-label","Indeks kepuasan "+I.toFixed(1)+" dari 100, kategori "+level(A));
   requestAnimationFrame(()=>setTimeout(()=>{$("#arc").style.strokeDashoffset=314.16*(1-I/100)},80));
   const t0=performance.now();(function tick(t){const p=Math.min(1,(t-t0)/1400);$("#idx").textContent=(I*(1-Math.pow(1-p,3))).toFixed(1).replace(".",",");if(p<1)requestAnimationFrame(tick)})(t0);
   const per=D.first?" · periode "+fd(D.first)+(D.last&&D.last!==D.first?" – "+fd(D.last):""):"";
-  $("#upd").textContent="Diperbarui "+new Date().toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})+" · "+D.n+" responden"+(DBG&&D.sources?" · "+D.sources.map(z=>z.sheet+" ("+z.n+")").join(", "):"");
+  $("#upd").textContent="Diperbarui "+new Date().toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})+" · "+D.n+" responden";
   $("#stats").innerHTML=[[n0(D.n),"responden mengisi survei"],[pc(pos),"jawaban bernilai Puas atau Sangat Puas"],[f1(A),"skor rata-rata dari skala 1–5"],[n0(N),"jawaban pada "+items.length+" pernyataan"]].map(s=>`<div class="stat"><b>${esc(s[0])}</b><span>${s[1]}</span></div>`).join("");
 
   const ga=g=>avgOf(g.d),best=[...gs].sort((a,b)=>ga(b)-ga(a))[0],gw=[...gs].sort((a,b)=>ga(a)-ga(b))[0],hi=rk[0],lo=rk[rk.length-1];
   const RO=[...ROLES,...Object.keys(D.roles).filter(k=>!ROLES.includes(k))];
-  const BR=D.byRole?RO.filter(r=>D.byRole[r]).map(r=>{const v=D.byRole[r],x=v.avg.filter(a=>a>0);return{r,n:v.n,av:v.avg,m:x.length?sum(x)/x.length:0}}):[];
-  const bm=BR.filter(b=>b.m>0).sort((a,b)=>b.m-a.m);
+  const BR=D.byRole?RO.filter(r=>D.byRole[r]).map(r=>{const v=D.byRole[r],x=v.avg.filter(a=>a>0);return{r,n:v.n,av:v.avg,m:x.length?sum(x)/x.length:0,mg:!!v.merged}}):[];
+  const bm=BR.filter(b=>b.m>0&&!b.mg).sort((a,b)=>b.m-a.m);
   const cnt=LV.slice(0,5).map(l=>items.filter(i=>level(i.a)===l[0]).length);
   let z=0;const card=(c,t,d,b)=>`<section class="card ${c}"><span class="ey">${String(++z).padStart(2,"0")}</span><h2>${t}</h2>${d?`<p class="d">${d}</p>`:""}${b}</section>`;
 
@@ -238,7 +222,7 @@ function render(D){
   const o=D.overall,qb=(t,a,nm)=>{const T=Math.max(1,sum(a));return `<div><p class="qh">${t}</p><div class="dl">${[4,3,2,1,0].map(k=>`<div><span>${nm[k]}</span><div class="bar"><i style="background:${C[k]}" data-w="${a[k]/T*100}"></i></div><em>${a[k]} · ${pc(a[k]/T*100)}</em></div>`).join("")}</div><p class="d" style="margin:14px 0 0">${n0(sum(a))} jawaban · rata-rata ${f1(avgOf(a))} dari 5</p></div>`};
   const ov=`<div class="ov"><div><b>${pc(pr(o.puas))}</b><span>puas terhadap lingkungan sekolah</span></div><div><b>${pc(pr(o.dukung))}</b><span>menilai lingkungan mendukung belajar dan bekerja</span></div></div><div class="pair">${qb("Seberapa puas Anda terhadap lingkungan sekolah secara keseluruhan?",o.puas,LN)}${qb("Apakah lingkungan sekolah sudah mendukung kegiatan belajar dan bekerja?",o.dukung,["Tidak Mendukung","Kurang Mendukung","Cukup Mendukung","Mendukung","Sangat Mendukung"])}</div>`;
 
-  const rl=RO.map(r=>{const c=D.roles[r]||0,p=c/Math.max(1,D.n)*100;return `<div><span>${esc(r)}</span><b>${c} <small style="color:var(--mute);font-weight:500">(${pc(p)})</small></b><div class="bar"><i data-w="${p}"></i></div></div>`}).join("");
+  const rl=RO.filter(r=>D.roles[r]>0).map(r=>{const c=D.roles[r]||0,p=c/Math.max(1,D.n)*100;return `<div><span>${esc(r)}</span><b>${c} <small style="color:var(--mute);font-weight:500">(${pc(p)})</small></b><div class="bar"><i data-w="${p}"></i></div></div>`}).join("");
 
   const dk=Object.keys(D.days||{}).sort().slice(-30),dm=Math.max(1,...dk.map(k=>D.days[k])),pk=dk.reduce((a,k)=>D.days[k]>(D.days[a]||0)?k:a,dk[0]);
   const act=dk.length?card("c6","Aktivitas pengisian",`Jumlah responden per hari, ${dk.length} hari terakhir. Puncak ${fd(pk)} dengan ${D.days[pk]} responden.`,`<div class="act">${dk.map(k=>`<div title="${fd(k)}: ${D.days[k]}"><b>${D.days[k]}</b><i style="height:${Math.max(3,Math.round(D.days[k]/dm*110))}px"></i><span>${+k.slice(8)}</span></div>`).join("")}</div>`):"";
@@ -249,7 +233,7 @@ function render(D){
   const method=`<div class="sc">${[["Sangat Puas","4,21–5,00"],["Puas","3,41–4,20"],["Cukup Puas","2,61–3,40"],["Kurang Puas","1,81–2,60"],["Tidak Puas","1,00–1,80"]].map(s=>`<div><b>${s[0]}</b><span>${s[1]}</span></div>`).join("")}</div>
   <ul class="ls t" style="margin-top:36px"><li>Skor pernyataan adalah rata-rata nilai 1 sampai 5 dari semua responden yang menjawab. Skor aspek dihitung dari seluruh jawaban pada pernyataan di aspek tersebut.</li><li><b>Indeks</b> = rata-rata skor ÷ 5 × 100. <b>Puas</b> = proporsi jawaban bernilai 4 dan 5.</li><li>Data: ${n0(D.n)} responden, ${n0(N)} jawaban pada ${items.length} pernyataan${per}.</li><li>Nama dan isian teks responden tidak ditampilkan pada infografis ini.</li></ul>`;
 
-  $("#m").innerHTML=(D.demo?`<div class="demo np"><b>Contoh tampilan.</b> Angka di halaman ini hanya ilustrasi dan bukan hasil survei sekolah.</div>`:"")+
+  $("#m").innerHTML=
   card("","Temuan utama","Ringkasan otomatis dari data yang masuk.",find)+
   card("","Indeks per aspek","Skor rata-rata dari skala 1 sampai 5. Aspek tertinggi ditandai emas.",rows)+
   card("","Sebaran jawaban","Proporsi setiap pilihan nilai dari seluruh jawaban, lalu per aspek. Angka di kanan adalah persentase yang puas.",lv+`<div class="leg">${[4,3,2,1,0].map(k=>`<span style="--c:${C[k]}">${LN[k]}</span>`).join("")}</div>${stk}`)+
@@ -261,22 +245,21 @@ function render(D){
   card("","Skala dan metode","Cara membaca kategori kepuasan dan perhitungan angka.",method);
   requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll("[data-w]").forEach(e=>e.style.width=e.dataset.w+"%"),80));
 }
-function empty(why,detail){
-  const T={nourl:"API_URL belum diisi.",old:"Layanan data belum memakai versi terbaru.",empty:"Belum ada jawaban yang masuk.",net:"Layanan data tidak dapat dijangkau (periksa akses publik dan alamat).",err:"Layanan data mengembalikan kesalahan. "+(detail||"")}[why];
+function empty(why){
+  const T=why==="fail"?"Hasil survei belum dapat dimuat saat ini. Silakan muat ulang halaman beberapa saat lagi.":"Infografis akan tampil di sini setelah data tersedia. Silakan kembali beberapa saat lagi.";
   $("#idx").textContent="–";$("#lvl").textContent="Menunggu data";$("#avg").textContent="Hasil survei sedang disiapkan";
   $("#upd").textContent="";$("#stats").innerHTML="";document.querySelector("main").style.marginTop="-40px";
-  $("#m").innerHTML=`<section class="card empty"><h2>Hasil survei sedang disiapkan</h2><p>Infografis akan tampil di sini setelah data tersedia. Silakan kembali beberapa saat lagi.</p>${DBG?`<p><code>${esc(T)}</code></p>`:""}${SHOWDEMO?'<button type="button" class="go" id="demoBtn">Lihat contoh tampilan</button>':""}</section>`;
-  const b=$("#demoBtn");if(b)b.onclick=()=>{document.querySelector("main").style.marginTop="";render(DEMO)};
+  $("#m").innerHTML=`<section class="card empty"><h2>Hasil survei sedang disiapkan</h2><p>${T}</p></section>`;
 }
 async function init(){
-  if(!/^https:\/\//.test(API_URL))return empty("nourl");
+  if(!/^https:\/\//.test(API_URL))return empty("fail");
   try{
     const r=await(await fetch(API_URL+"?action=summary",{cache:"no-store"})).json();
-    if(!r.ok)return empty("err",String(r.error||""));
-    if(!r.groups)return empty("old");
-    if(!(r.n>0))return empty("empty");
+    if(!r||!r.ok)return empty("fail");
+    if(r.tertahan||!(r.n>0))return empty();
+    if(!r.groups)return empty("fail");
     render(r);
-  }catch(e){empty("net")}
+  }catch(e){empty("fail")}
 }
 init();
 </script>
